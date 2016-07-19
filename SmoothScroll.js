@@ -689,23 +689,17 @@ var isMobile  = /mobile/i.test(userAgent);
 var isIEWin7  = /Windows NT 6.1/i.test(userAgent) && /rv:11/i.test(userAgent);
 var isEnabledForBrowser = (isChrome || isSafari || isIEWin7) && !isMobile;
 
-//  is Next Theme smooth scroll active?
-if( typeof next.smooth_scroll != 'undefined' && next.smooth_scroll == 1 ) {
+var wheelEvent;
+if ('onwheel' in document.createElement('div'))
+    wheelEvent = 'wheel';
+else if ('onmousewheel' in document.createElement('div'))
+    wheelEvent = 'mousewheel';
 
-    var wheelEvent;
-    if ('onwheel' in document.createElement('div'))
-        wheelEvent = 'wheel';
-    else if ('onmousewheel' in document.createElement('div'))
-        wheelEvent = 'mousewheel';
-
-    if (wheelEvent && isEnabledForBrowser) {
-        addEvent(wheelEvent, wheel);
-        addEvent('mousedown', mousedown);
-        addEvent('load', init);
-    }
-
+if (wheelEvent && isEnabledForBrowser) {
+    addEvent(wheelEvent, wheel);
+    addEvent('mousedown', mousedown);
+    addEvent('load', init);
 }
-
 
 /***********************************************
  * PUBLIC INTERFACE
